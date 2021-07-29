@@ -48,6 +48,7 @@ class _ApplicationState extends State<Application> {
     return GestureDetector(
       onTap: () => Get.focusScope?.unfocus(),
       child: GetMaterialApp(
+        
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

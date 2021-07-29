@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 class LoginController extends BaseController {
   late LoginRepository loginRepository;
   String _currentLang = LocalizationService.locale.languageCode;
+  var _test = 1.obs;
 
   LoginController() {
     this.loginRepository = LoginRepository();
