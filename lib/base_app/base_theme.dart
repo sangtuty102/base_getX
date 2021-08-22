@@ -1,5 +1,5 @@
 import 'package:demo_getx/app/app_controller.dart';
-import 'package:demo_getx/const/app_const.dart';
+import 'package:demo_getx/global/app_global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,11 +11,11 @@ class ThemeService {
       isDarkThemeFromBox() ? ThemeMode.dark : ThemeMode.light;
 
   /// `sangth` TODO get ThemeMode.system
-  bool isDarkThemeFromBox() => APP_DATA.read(AppConst.keyIsDarkTheme) ?? false;
+  bool isDarkThemeFromBox() => app_data.read(AppConst.keyIsDarkTheme) ?? false;
 
   /// Save ThemeMode to local storage
   _saveThemeToBox(bool isDarkMode) =>
-      APP_DATA.write(AppConst.keyIsDarkTheme, isDarkMode);
+      app_data.write(AppConst.keyIsDarkTheme, isDarkMode);
 
   /// Switch theme and save to local storage
   void switchTheme() {
@@ -129,5 +129,4 @@ CardTheme _buildCardTheme({bool isDarkMode = true}) => CardTheme().copyWith(
     color: isDarkMode ? AppColors.darkPrimaryColor : Colors.grey[50],
     elevation: 0.0);
 
-DialogTheme _buildDialogTheme({bool isDarkMode = true}) =>
-    DialogTheme(elevation: 1);
+DialogTheme _buildDialogTheme() => DialogTheme(elevation: 1);

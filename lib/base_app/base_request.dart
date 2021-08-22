@@ -1,5 +1,4 @@
-import 'package:demo_getx/const/app_const.dart';
-import 'package:demo_getx/const/app_consts.dart';
+import 'package:demo_getx/global/app_global.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 
@@ -8,6 +7,7 @@ enum RequestMethod { POST, GET }
 class BaseRequest extends GetConnect {
   @override
   void onInit() {
+    super.onInit();
     // TODO init
     httpClient.baseUrl = AppConst.urlBase;
     httpClient.timeout = Duration(microseconds: AppConst.requestTimeOut);

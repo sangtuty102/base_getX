@@ -7,13 +7,10 @@ class AppConst {
   // api
   static const String urlLogin = '/login';
 
-  // router
-  static const String routeLogin = '/loginPage';
-  static const String routeHome = '/homePage';
-
 // Key storage data
   static const String keyIsDarkTheme = '\keyTheme';
   static const String keyLocale = '\keyLocale';
+
   //error
   static const int error400 = 400;
   static const int error404 = 404;

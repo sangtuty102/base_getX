@@ -1,5 +1,5 @@
 import 'package:demo_getx/base_app/base_request.dart';
-import 'package:demo_getx/const/app_const.dart';
+import 'package:demo_getx/global/app_global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

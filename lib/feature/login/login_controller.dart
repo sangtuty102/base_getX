@@ -1,17 +1,8 @@
-import 'package:demo_getx/base_app/base_controller.dart';
-import 'package:demo_getx/base_app/base_theme.dart';
-import 'package:demo_getx/const/app_const.dart';
-import 'package:demo_getx/feature/login/login_repository.dart';
-import 'package:demo_getx/feature/login/model/login_model.dart';
-import 'package:demo_getx/feature/login/response/login_response.dart';
-import 'package:demo_getx/language/localization_ervice.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+part of 'login_page.dart';
 
 class LoginController extends BaseController {
   late LoginRepository loginRepository;
   String _currentLang = LocalizationService.locale.languageCode;
-  var _test = 1.obs;
 
   LoginController() {
     this.loginRepository = LoginRepository();
@@ -19,14 +10,14 @@ class LoginController extends BaseController {
   Future<void> funcLogin() async {
     try {
       showLoading();
-      // await 3.seconds.delay();
+      await 3.seconds.delay();
       // Get.toNamed(AppConst.routeHome, arguments: 'Sangth');
 
-      LoginResponse _response = await loginRepository
-          .loginUser(LoginModel('tuanln@goline.vn', 'Goline123'));
-      if (_response.code == 200) {
-        Get.offNamed(AppConst.routeHome, arguments: ' _response.data');
-      }
+      // LoginResponse _response = await loginRepository
+      //     .loginUser(LoginModel('tuanln@goline.vn', 'Goline123'));
+      // if (_response.code == 200) {
+      Get.offNamed(AppRouter.routeHome, arguments: ' _response.data');
+      // }
     } finally {
       hideLoading();
     }
@@ -37,7 +28,7 @@ class LoginController extends BaseController {
       showLoading();
 
       await loginRepository.getCovid();
-      Get.toNamed(AppConst.routeHome, arguments: '_response');
+      Get.toNamed(AppRouter.routeHome, arguments: '_response');
     } finally {
       hideLoading();
     }
@@ -90,5 +81,58 @@ class LoginController extends BaseController {
         ),
       ),
     );
+  }
+
+  void showBottomSheet() {
+    Get.bottomSheet(
+        GestureDetector(
+          onTap: () => Get.back(),
+          child: Container(
+            color: Color.fromRGBO(0, 0, 0, 0.001),
+            child: GestureDetector(
+              onTap: () {},
+              child: DraggableScrollableSheet(
+                initialChildSize: 0.4,
+                minChildSize: 0.2,
+                maxChildSize: 0.75,
+                builder: (_, controller) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(25.0),
+                        topRight: const Radius.circular(25.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.remove,
+                          color: Colors.grey[600],
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            controller: controller,
+                            itemCount: 100,
+                            itemBuilder: (_, index) {
+                              return Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Text("Element at index($index)"),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+        isScrollControlled: true // show full screen
+        );
   }
 }

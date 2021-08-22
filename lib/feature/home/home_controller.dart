@@ -7,7 +7,8 @@ class HomeController extends BaseController {
   late String arg;
 
   @override
-  Future<void> onInit() async {
+  void onInit() {
+    super.onInit();
     arg = Get.arguments ?? 'sang';
     log('okkkkkkkkkkkkkkkkkkk');
   }
