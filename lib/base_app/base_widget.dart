@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class BaseGetWidget<T extends BaseController> extends GetView<T> {
-  const BaseGetWidget({Key? key}) : super(key: key);
+  const BaseGetWidget({Key? key, required this.currentTag}) : super(key: key);
+  // final String? tag = null;
+
+  final String? currentTag;
 
   Widget buildWidgets();
 
@@ -20,8 +23,12 @@ abstract class BaseGetWidget<T extends BaseController> extends GetView<T> {
 
   Widget baseShowLoading(WidgetCallback child) {
     return Obx(
-      () => controller.isShowLoading.value
-          ? ColoredBox(
+      () => Stack(
+        children: [
+          child(),
+          Visibility(
+            visible: controller.isShowLoading.value,
+            child: ColoredBox(
               color: Colors.grey.withOpacity(0.5),
               child: Center(
                 child: Text(
@@ -30,8 +37,10 @@ abstract class BaseGetWidget<T extends BaseController> extends GetView<T> {
                       .copyWith(color: Colors.orangeAccent),
                 ),
               ),
-            )
-          : child(),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

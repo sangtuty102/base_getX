@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends BaseGetWidget<HomeController> {
-  HomeController get controller => Get.put(HomeController());
+  HomePage({String? homeTag}) : super(currentTag: homeTag);
+
+  HomeController get controller => Get.put(HomeController(), tag: currentTag);
 
   @override
   Widget buildWidgets() {

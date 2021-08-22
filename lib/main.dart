@@ -1,17 +1,18 @@
+import 'dart:developer';
+
 import 'package:demo_getx/base_app/base_theme.dart';
-import 'package:demo_getx/const/app_const.dart';
-import 'package:demo_getx/feature/home/home_page.dart';
-import 'package:demo_getx/feature/login/login_page.dart';
-import 'package:demo_getx/feature/splash_page/splash_page.dart';
+import 'package:demo_getx/global/app_global.dart';
 import 'package:demo_getx/language/localization_ervice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(Application());
 }
 
@@ -54,7 +55,6 @@ class _ApplicationState extends State<Application> {
           GlobalWidgetsLocalizations.delegate,
           DefaultCupertinoLocalizations.delegate
         ],
-        // supportedLocales: [const Locale('vi')],
         builder: (context, child) {
           // tắt hiệu ứng khi kéo xuống của listview
           return ScrollConfiguration(
@@ -65,7 +65,9 @@ class _ApplicationState extends State<Application> {
 
         debugShowCheckedModeBanner: false,
         title: AppStr.appName,
-        getPages: route,
+        // getPages: AppRouter.routers,
+        // dùng generate vì muốn truyền param là tagController cho page, chứ ko muốn là argument
+        onGenerateRoute: AppRouter.onGenerateRoute,
         // theme
         themeMode: themeService.theme,
         theme: getThemeDarkOrLight(),
@@ -76,29 +78,12 @@ class _ApplicationState extends State<Application> {
         fallbackLocale: LocalizationService.fallbackLocale,
         logWriterCallback: localLogWriter,
         initialRoute: '/',
-        // routes: routes,
-        // navigatorObservers: [GetBack((_) {}, Get.routing)],
       ),
     );
   }
 
-  var route = [
-    GetPage(
-      name: '/',
-      page: () => SplashPage(),
-    ),
-    GetPage(
-      name: AppConst.routeHome,
-      page: () => HomePage(),
-    ),
-    GetPage(
-      name: AppConst.routeLogin,
-      page: () => LoginPage(),
-    ),
-  ];
-
   void localLogWriter(String text, {bool isError = false}) {
-    print('** ' + text + ' [' + isError.toString() + ']');
+    log('** ' + text + ' [' + isError.toString() + ']');
   }
 }
 

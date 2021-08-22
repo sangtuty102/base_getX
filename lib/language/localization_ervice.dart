@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:demo_getx/app/app_controller.dart';
-import 'package:demo_getx/const/app_consts.dart';
+import 'package:demo_getx/global/app_global.dart';
 import 'package:demo_getx/language/str_en.dart';
 import 'package:demo_getx/language/str_vi.dart';
 import 'package:get/get.dart';
@@ -38,24 +38,24 @@ class LocalizationService extends Translations {
       };
 
   static Locale _getLocaleFromLanguage({String? langCode}) {
-    String? _initLocale = APP_DATA.read(AppConst.keyLocale);
+    String? _initLocale = app_data.read(AppConst.keyLocale);
 
     for (int i = 0; i < langCodes.length; i++) {
       if (langCode != null && _initLocale != null) {
         if (langCode == langCodes[i]) {
-          APP_DATA.write(AppConst.keyLocale, langCodes[i]);
+          app_data.write(AppConst.keyLocale, langCodes[i]);
           return locales[i];
         }
       } else {
         String? _lang = Get.deviceLocale?.languageCode;
 
         if (_lang == langCodes[i]) {
-          APP_DATA.write(AppConst.keyLocale, langCodes[i]);
+          app_data.write(AppConst.keyLocale, langCodes[i]);
           return locales[i];
         }
       }
     }
-    APP_DATA.write(AppConst.keyLocale, langCodes[0]);
+    app_data.write(AppConst.keyLocale, langCodes[0]);
     return locales[0];
   }
 }
